@@ -29,11 +29,17 @@ url="https://pixabay.com/api/?key="+os.getenv("PIC_TOKEN")+"&q={}"
 
 bot=Flask(__name__)
 api=Api(bot)
+
 class Bot(Resource):
     global url
     def post(self):
         #print(1)
         app=telebot.TeleBot(os.getenv("TOKEN"))
+
+        @app.message_handler(commands=['start'])
+        def greet(message):
+            app.reply_to(message,f"{message.text}")
+
         @app.message_handler(func=lambda m:True)
         def photo(message):
             global url
