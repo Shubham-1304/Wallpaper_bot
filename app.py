@@ -50,7 +50,7 @@ class Bot(Resource):
             print(random.randrange(0,fn-1,1))
             app.send_photo(message.chat.id,req["hits"][random.randrange(0,fn-1,1)]["previewURL"])
 
-        #app.polling()
+        app.polling()
         return "ok"
     def get(self):
         return "error"
