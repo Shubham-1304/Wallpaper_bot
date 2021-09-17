@@ -32,18 +32,19 @@ api=Api(bot)
 class Bot(Resource):
     global url
     def post(self):
+        #print(1)
         app=telebot.TeleBot(os.getenv("TOKEN"))
         @app.message_handler(func=lambda m:True)
         def photo(message):
             global url
             photos=url.format(message.text)
             req=requests.get(photos).json()
-
+            print(1)
             fn=len(req["hits"])
             print(random.randrange(0,fn-1,1))
             app.send_photo(message.chat.id,req["hits"][random.randrange(0,fn-1,1)]["previewURL"])
 
-        #app.polling()
+        app.polling()
         return "ok"
     def get(self):
         return "error"
