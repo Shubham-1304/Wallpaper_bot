@@ -44,7 +44,10 @@ class Bot(Resource):
         def photo(message):
             global url
             photos=url.format(message.text)
-            req=requests.get(photos).json()
+            try:
+                req=requests.get(photos,timeout=10).json()
+            except:
+                print("timeout")
             print(1)
             fn=len(req["hits"])
             print(random.randrange(0,fn-1,1))
